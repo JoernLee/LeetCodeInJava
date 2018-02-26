@@ -1,39 +1,63 @@
 package mylinklist;
 
 /**
+ * 链表节点定义，data代表数值，next代表指向下一个节点。
+ * @author Joern
+ *
+ */
+class Node implements Cloneable {
+	
+	//存放数据的变量,object型
+	public Object data;
+	////存放结点的变量,默认为null
+	public Node next;
+	////构造方法，在构造时就能够给data赋值
+	public Node(Object data){
+		this.data = data;
+	}
+	@Override
+	public String toString() {
+		
+		return String.valueOf(data);
+	}
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		 Node node = null;  
+          try{  
+             node = (Node)super.clone();   //浅复制  
+          }catch(CloneNotSupportedException e) {  
+              e.printStackTrace();  
+          }  
+          return node;  
+	}
+	
+	
+	
+}
+
+/**
  * 
  * @author Joern
- * 自己定义的一个单链表，完成初始化，读取，插入，删除等操作.
+ * 自己定义的一个单链表，方法包括：
+ * 判空，表头添加节点，插入节点，删除节点，查找节点
+ * 计算链表长度，打印节点，反转链表
  */
 
 public class MyLinkList {
 	
 	//定义头节点
-	Node head = new Node(null);
+	private Node head;
 	
-	/**
-	 * 链表节点定义，data代表数值，next代表指向下一个节点。
-	 * @author Joern
-	 *
-	 */
-	public class Node {
-		
-		//存放数据的变量,object型
-		public Object data;
-		////存放结点的变量,默认为null
-		public Node next = null;
-		////构造方法，在构造时就能够给data赋值
-		public Node(Object data){
-			this.data = data;
-		}
-		@Override
-		public String toString() {
-			
-			return String.valueOf(data);
-		}
-		
+	public MyLinkList(){
+		head = new Node(null);
 	}
 	
+	/**
+	 * 是否为空链表
+	 */
+	public boolean isEmpty(){
+		return (head.next == null);
+	}
 	
 	
 	/**
@@ -101,7 +125,7 @@ public class MyLinkList {
 	 * 读取操作
 	 * @
 	 */
-	public boolean findNote(Object key){
+	public boolean findNode(Object key){
 		Node temp = head;
 		while(temp!= null){
 			if(temp.data == key){
@@ -136,5 +160,46 @@ public class MyLinkList {
         }
         System.out.println();
     }
-	
+    
+    public void print(Node head){
+        Node temp = head;
+        while(temp != null){
+            System.out.print(temp.data+",");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+    
+    /**
+     * 反转链表
+     * 把0-1-2-3改成3-2-1-0
+     * 反转链表的一般思路是使用三个指针。
+     * 其中，一个指针为当前节点，一个指针指向当前节点的下一个节点，另外一个节点则指向新链表表头从而保存结果。
+     * @throws CloneNotSupportedException 
+     */
+    public Node revLinkList() throws CloneNotSupportedException{
+    	Node temp = (Node) head.clone();
+    	
+    	if(temp.next == null){
+    		return temp;
+    	}
+    	//使用三个节点指针
+    	Node currentNode = temp.next; //当前节点
+    	Node newHead = null; //作为反转链表的头部
+    	Node nextNode = null; //当前节点下一个节点
+    
+    	
+    	
+    	while(currentNode!=null){
+    		//先将当前节点的下个节点保存-如果不理解建议单步调试进行分析
+    		nextNode = currentNode.next;
+
+            currentNode.next = newHead; //将原来的链表断链,将current的下一个结点指向新链表的头结点
+            newHead = currentNode; //将current设为新表头
+
+            currentNode = nextNode; //将之前保存的next设为下一个节点
+    	}
+    	
+    	return newHead;
+    }
 }
