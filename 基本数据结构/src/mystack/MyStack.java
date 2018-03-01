@@ -20,6 +20,7 @@ public class MyStack {
 	
 	private int length = 0;
 	
+	
 	public void push(Object obj){
 		StackNode newNode = new StackNode(obj);
 		newNode.next = first;
