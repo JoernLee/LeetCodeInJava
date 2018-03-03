@@ -5,24 +5,24 @@ import java.util.ArrayList;
 import myqueue.MyQueue;
 
 /**
- * 无向图邻接矩阵实现
+ * 邻接矩阵实现
  * @author Joern
  *
  */
 
-public class MyMatrixNDGraph {
+public class MyMatrixGraph {
 	private int numEdges; //边数
 	
 	private ArrayList<Integer> vexs; //顶点表
 	private int[][] edges; //邻接矩阵 可以看成边表
 	
-	private Boolean[] visited; //深度遍历以访问标志
+	private Boolean[] visited; //遍历以访问标志
 	
 	/**
 	 * 
 	 * @param n:邻接矩阵最大容量
 	 */
-	public MyMatrixNDGraph(int n){
+	public MyMatrixGraph(int n){
 		vexs = new ArrayList<>(n);
 		edges = new int[n][n];
 		visited = new Boolean[n];

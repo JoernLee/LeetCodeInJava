@@ -3,15 +3,26 @@ package Õº;
 public class Test {
 
 	public static void main(String[] args) {
-		testMatrixNDG();
 		
+		//testMatrixGraph(); //≤‚ ‘Õº-¡⁄Ω”æÿ’Û
+		
+		//testALGraph();  //≤‚ ‘Õº-¡⁄Ω”±Ì
 		
 		
 
 	}
 
-	private static void testMatrixNDG() {
-		MyMatrixNDGraph myMatrixNDGraph = new MyMatrixNDGraph(9);
+	private static void testALGraph() {
+		MyALGraph myALGraph = new MyALGraph();
+		myALGraph.DFSTraverse();
+		System.out.println("\n");
+		myALGraph.DFSTraverse2(0);
+		System.out.println("\n");
+		myALGraph.BFS(0);
+	}
+
+	private static void testMatrixGraph() {
+		MyMatrixGraph myMatrixNDGraph = new MyMatrixGraph(9);
 		for(int i = 0;i < 9;i++){
 			myMatrixNDGraph.insertVertex(i);
 		}
