@@ -71,11 +71,11 @@ public class MyMatrixNDGraph {
 	}
 	
 	//插入边
-	public void insertEdge(int v1,int v2,int weight){
-		if(edges[v1][v2] == 0){
-			edges[v1][v2] = weight;
-			//因为是无向图，邻接矩阵对称
-			edges[v2][v1] = weight;
+	public void insertEdge(int startVertex,int endVertex,int weight){
+		if(edges[startVertex][endVertex] == 0){
+			edges[startVertex][endVertex] = weight;
+			//因为是无向图，邻接矩阵是对称的。有向图则不需要
+			edges[endVertex][startVertex] = weight;
 			numEdges++;
 		}else{
 			System.out.println("该边已经存在");
@@ -83,14 +83,17 @@ public class MyMatrixNDGraph {
 	}
 	
 	//修改边
-	public void changeEdge(int v1,int v2,int weight){
-		edges[v1][v2] = weight;
-		edges[v2][v1] = weight;
+	public void changeEdge(int startVertex,int endVertex,int weight){
+		edges[startVertex][endVertex] = weight;
+		//如果是有向图则不需要下面这一句
+		edges[endVertex][startVertex] = weight;
 	}
 	
 	//删除边
-	public void deleteEdge(int v1,int v2){
-		edges[v1][v2] = 0;
+	public void deleteEdge(int startVertex,int endVertex){
+		edges[startVertex][endVertex] = 0;
+		//有向图不需要
+		edges[endVertex][startVertex] = 0;
 		numEdges--;
 	}
 	
@@ -144,7 +147,10 @@ public class MyMatrixNDGraph {
 	
 	/**
 	 * 广度优先遍历BFS
-	 * 利用了栈的数据结构-可以用我的也可以用系统的Queue
+	 * 1.利用了栈的数据结构-可以用我的也可以用系统的Queue
+	 * 2.利用一个队列，把访问的节点入列，接着出列队列头节点，同时把出列节点所能访问到的所有节点（且没有访问过）依次访问并入列
+	 * 3.重复2步骤直到队列为空
+	 * 
 	 */
     public void BFSTraverse(){
     	int i,j;
