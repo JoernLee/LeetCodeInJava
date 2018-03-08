@@ -159,7 +159,7 @@ public class MyBinaryTree {
 			return ;
 		}
 		postOrderTraverse(node.lChild);
-		postOrderTraverse(node.rChild);;
+		postOrderTraverse(node.rChild);
 		node.display();
 	}
 	
